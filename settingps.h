@@ -47,6 +47,9 @@ int grip1 = 90, grip2 = 90;
 int openG1 = 90, openG2 = 90;
 bool useGrip2 = false;
 
+int batteryPower = 75;
+int batteryStik  = 40;
+
 // --- Function Prototypes ---
 void handleModeMenu(bool, bool, bool, bool, bool, bool);
 void handleResetConfirm(bool, bool, bool, bool);
@@ -336,6 +339,7 @@ inline int getOpenG1() { return openG1; }
 inline int getOpenG2() { return openG2; }
 
 #endif  // SETTINGPS_H
+
 
 
 
