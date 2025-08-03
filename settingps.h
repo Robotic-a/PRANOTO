@@ -5,6 +5,7 @@
 #include <EEPROM.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
+#include "icon.h"
 
 #define SCREEN_WIDTH 128
 #define SCREEN_HEIGHT 64
@@ -289,6 +290,40 @@ void closeMenu() {
   display.display();
 }
 
+void closeMenu2() {
+  inModeMenu = false;
+  inResetConfirm = false;
+  editingParam = false;
+
+  display.clearDisplay();
+
+  display.drawBitmap(3, 29, epd_bitmap_power_bat, 58, 20, WHITE);
+  display.drawBitmap(67, 29, epd_bitmap_stik_bat, 58, 20, WHITE);
+
+  display.setTextSize(1);
+  display.setTextColor(WHITE);
+
+  display.setCursor((128 - 42) / 2, 1);
+  display.print("PRANOTO");
+
+  display.setCursor((128 - 66) / 2, 10);
+  display.print("RACING TEAM");
+
+  display.setCursor(18, 35);
+  display.print(String(batteryPower) + "%");
+
+  display.setCursor(16, 55);
+  display.print("BATT");
+
+  display.setCursor(82, 35);
+  display.print(String(batteryStik) + "%");
+
+  display.setCursor(82, 55);
+  display.print("STIK");
+
+  display.display();
+}
+
 // --- Getter Functions ---
 inline int getSpeedSetting() { return speedLifter; }
 inline int getMotorSpeed(int i) { return motorSpeed[i]; }
@@ -301,6 +336,7 @@ inline int getOpenG1() { return openG1; }
 inline int getOpenG2() { return openG2; }
 
 #endif  // SETTINGPS_H
+
 
 
 
