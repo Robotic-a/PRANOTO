@@ -152,17 +152,17 @@ void handleModeMenu(bool btnUp, bool btnDown, bool btnEnter, bool btnKiri, bool 
   } else {
     if (btnUp && canUpdateMenu()) {
       switch (selectedMode) {
-        case 0: if (selectedParamIndex < 4) motorSpeed[selectedParamIndex] += 1; break;
+        case 0: if (selectedParamIndex < 4) motorSpeed[selectedParamIndex] += 5; break;
         case 1: if (selectedParamIndex < 4) stepPos[selectedParamIndex] += 5; break;
         case 2: 
           if (selectedParamIndex < 4) motLifterPos[selectedParamIndex] += 5; 
           else if (selectedParamIndex == 4) speedLifter += 5;
           break;
         case 3:
-          if (selectedParamIndex == 0) grip1 += 1;
-          else if (selectedParamIndex == 1) grip2 += 1;
-          else if (selectedParamIndex == 2) openG1 += 1;
-          else if (selectedParamIndex == 3) openG2 += 1;
+          if (selectedParamIndex == 0) grip1 += 3;
+          else if (selectedParamIndex == 1) grip2 += 3;
+          else if (selectedParamIndex == 2) openG1 += 3;
+          else if (selectedParamIndex == 3) openG2 += 3;
           else if (selectedParamIndex == 4) useGrip2 = !useGrip2;
           break;
       }
@@ -170,10 +170,10 @@ void handleModeMenu(bool btnUp, bool btnDown, bool btnEnter, bool btnKiri, bool 
     if (btnDown && canUpdateMenu()) {
       switch (selectedMode) {
         case 0: if (selectedParamIndex < 4) motorSpeed[selectedParamIndex] -= 1; break;
-        case 1: if (selectedParamIndex < 4) stepPos[selectedParamIndex] -= 5; break;
+        case 1: if (selectedParamIndex < 4) stepPos[selectedParamIndex] -= 1; break;
         case 2: 
-          if (selectedParamIndex < 4) motLifterPos[selectedParamIndex] -= 5;
-          else if (selectedParamIndex == 4) speedLifter -= 5;
+          if (selectedParamIndex < 4) motLifterPos[selectedParamIndex] -= 1;
+          else if (selectedParamIndex == 4) speedLifter -= 1;
           break;
         case 3:
           if (selectedParamIndex == 0) grip1 -= 1;
@@ -301,5 +301,6 @@ inline int getOpenG1() { return openG1; }
 inline int getOpenG2() { return openG2; }
 
 #endif  // SETTINGPS_H
+
 
 
