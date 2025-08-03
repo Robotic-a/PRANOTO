@@ -10,12 +10,12 @@
 
 #define MOTOR_FL_IN 4
 #define MOTOR_FL_IN2 16
-#define MOTOR_FR_IN 19
-#define MOTOR_FR_IN2 23
+#define MOTOR_FR_IN 26
+#define MOTOR_FR_IN2 27
 #define MOTOR_BL_IN 17
 #define MOTOR_BL_IN2 18
-#define MOTOR_BR_IN 26
-#define MOTOR_BR_IN2 27
+#define MOTOR_BR_IN 19
+#define MOTOR_BR_IN2 23
 
 #define MOTOR_FL_PWM_CH 5
 #define MOTOR_FR_PWM_CH 6
@@ -248,10 +248,10 @@ void logic() {
     updateSettingMenu(atas, bawah, ex, L1, R1, kotak);
   }
   else if(!openSetting){
-    if (ex && kiri)               motor4(speedFL, -speedFR, speedBL, -speedBR);
-    else if (ex && kanan)         motor4(-speedFL, speedFR, -speedBL, speedBR);
-    else if (tarki)               motor4(speedFL, -speedFR, speedBL, -speedBR);
-    else if (tarka)               motor4(-speedFL, speedFR, -speedBL, speedBR);
+    if (ex && kanan)               motor4(speedFL, -speedFR, speedBL, -speedBR);
+    else if (ex && kiri)         motor4(-speedFL, speedFR, -speedBL, speedBR);
+    else if (tarka)               motor4(speedFL, -speedFR, speedBL, -speedBR);
+    else if (tarki)               motor4(-speedFL, speedFR, -speedBL, speedBR);
     else if (ex || atas)          motor4(L1 ? 255 : speedFL - speedLow, L1 ? 255 : speedFR - speedLow, L1 ? 255 : speedBL - speedLow, L1 ? 255 : speedBR - speedLow);
     else if (kotak || bawah)      motor4(-(L1 ? 255 : speedFL - speedLow), -(L1 ? 255 : speedFR - speedLow), -(L1 ? 255 : speedBL - speedLow), -(L1 ? 255 : speedBR - speedLow));
     else if (kiri)                motor4(-speedFL, speedFR, speedBL, -speedBR);
