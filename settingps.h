@@ -287,21 +287,13 @@ void drawResetConfirm() {
   display.display();
 }
 
-void closeMenu() {
-  inModeMenu = false;
-  inResetConfirm = false;
-  editingParam = false;
-
-  display.clearDisplay();
-  display.setCursor(0, 10);
-  display.setTextSize(1);
-  display.setTextColor(SSD1306_WHITE);
-  display.println("PRANOTO RACING");
-  display.println("     TEAM");
-  display.display();
+void setBatteryStatus(int power, int stik) {
+  batteryPower = constrain(power, 0, 100);
+  batteryStik = constrain(stik, 0, 100);
+  saveSettingsToEEPROM();
 }
 
-void closeMenu2() {
+void closeMenu() {
   inModeMenu = false;
   inResetConfirm = false;
   editingParam = false;
@@ -347,6 +339,7 @@ inline int getOpenG1() { return openG1; }
 inline int getOpenG2() { return openG2; }
 
 #endif  // SETTINGPS_H
+
 
 
 
