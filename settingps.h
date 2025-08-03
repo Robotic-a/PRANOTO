@@ -23,6 +23,8 @@ struct SettingData {
   int grip1, grip2;
   int openG1, openG2;
   bool useGrip2;
+  int batteryPower;
+  int batteryStik;
 };
 
 // --- State & Debounce Timing ---
@@ -90,6 +92,9 @@ void saveSettingsToEEPROM() {
   data.openG1 = openG1;
   data.openG2 = openG2;
   data.useGrip2 = useGrip2;
+  
+  data.batteryPower = batteryPower;
+  data.batteryStik = batteryStik;
 
   EEPROM.put(0, data);
   EEPROM.commit();
@@ -108,6 +113,9 @@ void loadSettingsFromEEPROM() {
   openG1 = data.openG1;
   openG2 = data.openG2;
   useGrip2 = data.useGrip2;
+
+  batteryPower = data.batteryPower;
+  batteryStik = data.batteryStik;
 }
 
 // --- Debounce Check ---
@@ -339,6 +347,7 @@ inline int getOpenG1() { return openG1; }
 inline int getOpenG2() { return openG2; }
 
 #endif  // SETTINGPS_H
+
 
 
 
