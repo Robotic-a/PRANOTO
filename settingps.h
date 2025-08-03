@@ -59,6 +59,7 @@ void drawResetConfirm();
 bool canUpdateMenu();
 void saveSettingsToEEPROM();
 void loadSettingsFromEEPROM();
+void setBatteryStatus(int, int);
 
 // --- Initialize OLED + EEPROM ---
 void initSettingan() {
@@ -282,7 +283,6 @@ void drawResetConfirm() {
 void setBatteryStatus(int power, int stik) {
   batteryPower = constrain(power, 0, 100);
   batteryStik = constrain(stik, 0, 100);
-  saveSettingsToEEPROM();
 }
 
 void closeMenu() {
@@ -331,6 +331,7 @@ inline int getOpenG1() { return openG1; }
 inline int getOpenG2() { return openG2; }
 
 #endif  // SETTINGPS_H
+
 
 
 
