@@ -7,7 +7,7 @@
 #include <Adafruit_SSD1306.h>
 
 #define SCREEN_WIDTH 128
-#define SCREEN_HEIGHT 32
+#define SCREEN_HEIGHT 64
 #define OLED_RESET -1
 #define EEPROM_SIZE 128
 
@@ -301,6 +301,7 @@ inline int getOpenG1() { return openG1; }
 inline int getOpenG2() { return openG2; }
 
 #endif  // SETTINGPS_H
+
 
 
 
