@@ -242,9 +242,9 @@ void drawModeMenu() {
               if (i < 4) display.println(motorSpeed[i]); break;
       case 1: display.print("S"); display.print(i); display.print(": ");
               if (i < 4) display.println(stepPos[i]); break;
-      case 2: display.print("L"); display.print(i); display.print(": ");
+      case 2: display.print("ML"); display.print(i); display.print(": ");
               if (i < 4) display.println(motLifterPos[i]); 
-              else if (i == 4) display.println(String("Speed: ") + speedLifter);
+              else if (i == 5) display.println(String("Speed: ") + speedLifter);
               break;
       case 3:
         if (i == 0) display.println(String("G1: ") + grip1);
@@ -298,3 +298,4 @@ inline int getOpenG1() { return openG1; }
 inline int getOpenG2() { return openG2; }
 
 #endif  // SETTINGPS_H
+
