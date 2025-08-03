@@ -80,7 +80,7 @@ void loop() {
     int ly = PS4.data.analog.stick.ly;
     int rx = PS4.data.analog.stick.rx;
 
-    int threshold = 90;
+    int threshold = 100;
 
     LanalogAtas = LanalogBawah = LanalogKanan = LanalogKiri = 0;
     LanalogSerongAtasKanan = LanalogSerongAtasKiri = 0;
