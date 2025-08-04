@@ -281,8 +281,9 @@ void drawResetConfirm() {
 }
 
 void setBatteryStatus(int power, int stik) {
-  batteryPower = constrain(power, 0, 100);
-  batteryStik = constrain(stik, 0, 100);
+  batteryPower = constrain(power, 0, 99);
+  batteryStik = constrain(stik, 0, 99);
+  updateBatteryValuesOnly();
 }
 
 void closeMenu() {
@@ -304,17 +305,33 @@ void closeMenu() {
   display.setCursor((128 - 66) / 2, 10);
   display.print("RACING TEAM");
 
-  display.setCursor(18, 35);
-  display.print(String(batteryPower) + "%");
-
   display.setCursor(16, 55);
   display.print("BATT");
 
-  display.setCursor(82, 35);
-  display.print(String(batteryStik) + "%");
-
   display.setCursor(82, 55);
   display.print("STIK");
+
+  display.display();
+  updateBatteryValuesOnly();
+}
+
+int prevBatteryPower = -1;
+int prevBatteryStik  = -1;
+
+void updateBatteryValuesOnly() {
+  if (batteryPower != prevBatteryPower) {
+    display.fillRect(18, 35, 30, 10, BLACK);
+    display.setCursor(18, 35);
+    display.print(String(batteryPower) + "%");
+    prevBatteryPower = batteryPower;
+  }
+
+  if (batteryStik != prevBatteryStik) {
+    display.fillRect(82, 35, 30, 10, BLACK);
+    display.setCursor(82, 35);
+    display.print(String(batteryStik) + "%");
+    prevBatteryStik = batteryStik;
+  }
 
   display.display();
 }
@@ -331,6 +348,7 @@ inline int getOpenG1() { return openG1; }
 inline int getOpenG2() { return openG2; }
 
 #endif  // SETTINGPS_H
+
 
 
 
