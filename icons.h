@@ -1,5 +1,5 @@
-#ifndef ICON_H
-#define ICON_H
+#ifndef ICONS_H
+#define ICONS_H
 
 #include <avr/pgmspace.h>
 
