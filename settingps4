@@ -227,47 +227,132 @@ void resetAllSettings() {
 }
 
 // --- Menu Drawing ---
-void drawModeMenu() {
-  display.clearDisplay();
-  display.setCursor(0, 0);
-  display.setTextSize(1);
-  display.setTextColor(SSD1306_WHITE);
-  display.print("Mode: "); display.print(modeOptions[selectedMode]);
-  if (editingParam) display.print(" [E]");
-  display.println();
+void drawMotorSpeedMenu() {
+    display.clearDisplay();
+  
+    // Background tetap
+    display.drawBitmap(0, 0, epd_bitmap_gg, 128, 64, WHITE);
+  
+    display.setTextSize(1);
+    display.setTextColor(WHITE);
+    display.setCursor(64 - 32, 2);
+    display.print("MOTOR SPEED");
+  
+    if (editingParam) {
+      display.setCursor(64 - 3, 64 - 7); // Sedikit lebih ke bawah biar rata
+      display.print("[E]");
+    }
+  
+    // Halaman ditentukan berdasarkan indeks
+    int baseIdx = (selectedParamIndex < 2) ? 0 : 2;
+  
+    const char* motorLabels[4] = {"M FL", "M FR", "M BL", "M BR"};
+    int posX[2] = {20, 88};    // Kolom kiri dan kanan
+    int speedY = 20;           // Y untuk angka motorSpeed
+    int labelY = 36;           // Y untuk label
+  
+    for (int i = 0; i < 2; i++) {
+      int idx = baseIdx + i;
+      bool isSelected = (idx == selectedParamIndex) && editingParam;
+  
+      // Highlight angka saja
+        if (isSelected) {
+        display.fillRect(posX[i] - 2, speedY - 2, 28, 12, WHITE);
+        display.setTextColor(BLACK);
+        display.setCursor(posX[i], speedY);
+        display.print(motorSpeed[idx]);
+        display.setTextColor(WHITE);  // Ganti warna kembali untuk label
+        } else {
+        display.setTextColor(WHITE);
+        display.setCursor(posX[i], speedY);
+        display.print(motorSpeed[idx]);
+        }
 
-  const int totalParams = 6, maxVis = 3;
-  int startIdx = constrain(selectedParamIndex - 1, 0, totalParams - maxVis);
-  int endIdx = min(startIdx + maxVis, totalParams);
+        // Label motor tetap putih
+        display.setCursor(posX[i], labelY);
+        display.print(motorLabels[idx]);
+    }
+  
+    display.display();
+  }
+  
+  void drawStepperMenu() {
+    display.clearDisplay();
+    display.setCursor(0, 0);
+    display.print("Mode: STEP LIFTER");
+    if (editingParam) display.print(" [E]");
+    display.println();
+  
+    for (int i = 0; i < 4; i++) {
+      display.print(i == selectedParamIndex ? "> " : "  ");
+      display.print("S");
+      display.print(i);
+      display.print(": ");
+      display.println(stepPos[i]);
+    }
+    display.display();
+  }
+  
+  void drawMotorLifterMenu() {
+    display.clearDisplay();
+    display.setCursor(0, 0);
+    display.print("Mode: MOT LIFTER");
+    if (editingParam) display.print(" [E]");
+    display.println();
+  
+    for (int i = 0; i < 5; i++) {
+      display.print(i == selectedParamIndex ? "> " : "  ");
+      if (i < 4)
+        display.println(String("LPos") + i + ": " + motLifterPos[i]);
+      else
+        display.println(String("LSpeed: ") + speedLifter);
+    }
+    display.display();
+  }
+  
+  void drawGripMenu() {
+    display.clearDisplay();
+    display.setCursor(0, 0);
+    display.print("Mode: GRIP");
+    if (editingParam) display.print(" [E]");
+    display.println();
+  
+    const char* labels[] = {"G1", "G2", "OpenG1", "OpenG2", "Use2"};
+    int values[] = {grip1, grip2, openG1, openG2};
+  
+    for (int i = 0; i < 5; i++) {
+      display.print(i == selectedParamIndex ? "> " : "  ");
+      display.print(labels[i]);
+      display.print(": ");
+      if (i == 4)
+        display.println(useGrip2 ? "YES" : "NO");
+      else
+        display.println(values[i]);
+    }
+    display.display();
+  }
+  
+  void drawSystemMenu() {
+    display.clearDisplay();
+    display.setCursor(0, 0);
+    display.print("Mode: SYSTEM");
+    if (editingParam) display.print(" [E]");
+    display.println();
+  
+    display.print(selectedParamIndex == 0 ? "> " : "  ");
+    display.println("Reset All");
+    display.display();
+  }
 
-  for (int i = startIdx; i < endIdx; i++) {
-    display.print(i == selectedParamIndex ? "> " : "  ");
+  void drawModeMenu() {
     switch (selectedMode) {
-      case 0: display.print("M"); display.print(i + 1); display.print(": ");
-              if (i < 4) display.println(motorSpeed[i]); break;
-      case 1: display.print("S"); display.print(i); display.print(": ");
-              if (i < 4) display.println(stepPos[i]); break;
-      case 2: 
-        if (i == 0) display.println(String("LPos0: ") + motLifterPos[0]);
-        else if (i == 1) display.println(String("LPos1: ") + motLifterPos[1]);
-        else if (i == 2) display.println(String("LPos2: ") + motLifterPos[2]);
-        else if (i == 3) display.println(String("LPos3: ") + motLifterPos[3]);
-        else if (i == 4) display.println(String("LSpeed: ") + speedLifter);
-        break;
-      case 3:
-        if (i == 0) display.println(String("G1: ") + grip1);
-        else if (i == 1) display.println(String("G2: ") + grip2);
-        else if (i == 2) display.println(String("OpenG1: ") + openG1);
-        else if (i == 3) display.println(String("OpenG2: ") + openG2);
-        else if (i == 4) display.println(String("Use2: ") + (useGrip2 ? "YES" : "NO"));
-        break;
-      case 4:
-        if (i == 0) display.println("Reset All");
-        break;
+      case 0: drawMotorSpeedMenu(); break;
+      case 1: drawStepperMenu(); break;
+      case 2: drawMotorLifterMenu(); break;
+      case 3: drawGripMenu(); break;
+      case 4: drawSystemMenu(); break;
     }
   }
-  display.display();
-}
 
 void drawResetConfirm() {
   display.clearDisplay();
